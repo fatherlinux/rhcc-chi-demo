@@ -27,10 +27,6 @@ spec:
       uri: https://github.com/fatherlinux/rhcc-chi-demo.git
     type: Git
   strategy:
-    dockerStrategy:
-      from:
-        kind: ImageStreamTag
-        name: rhel:latest
     type: Docker
   triggers:
   - github:
