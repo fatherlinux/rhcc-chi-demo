@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ImageStream
+metadata:
+  creationTimestamp: null
+  labels:
+    app: specialapplication
+  name: specialapplication
+spec: {}
+status:
+  dockerImageRepository: ""
+---
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: specialapplication
+  name: specialapplication
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: specialapplication:latest
+  resources: {}
+  source:
+    contextDir: ./
+    git:
+      uri: https://github.com/fatherlinux/rhcc-chi-demo.git
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: rhel:latest
+    type: Docker
+  triggers:
+  - github:
+      secret: Jxx_nqGTx19G0fHE9o4U
+    type: GitHub
+  - generic:
+      secret: FCvPlf890_pHVDC-YAuM
+    type: Generic
+  - type: ConfigChange
+  - type: imageChange
+    imageChange: {}
